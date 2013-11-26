@@ -1,0 +1,50 @@
+- title "Dashboard"
+
+- if current_user.markers_count > 0
+  .row.alert.alert-info.text-center
+    There are 
+    = link_to 'new postings', me_news_path, class: 'alert-link'
+    waiting for you!
+
+
+.dashboard.main-container
+
+  - if current_user.subscriptions.count > 0
+    .row.col-md-12#subscriptions
+
+      %h3 Your subscriptions
+
+      - albums_with_news = current_user.albums_with_news
+      - current_user.subscribed_albums.each do |album|
+        = render partial: 'albums/thumbnail', locals: {album: album, owner: false, news: albums_with_news.include?(album) }
+
+  - elsif !(current_user.can_create_album? || current_user.has_albums?)
+    .jumbotron
+      %h1= t('me.index.no_content')
+
+
+  - if current_user.can_create_album? || current_user.has_albums?
+    .row.col-md-12#albums
+
+      %h3 Your albums
+
+      - if current_user.albums.blank?
+        %p.well          
+          You don't own any albums! 
+          = link_to "Create one", new_album_path, class: 'btn btn-default'
+
+      - else
+        %p.well
+          - if (count = current_user.postings.blank.count) > 0
+            = link_to button_tag("Unpublished (#{count})", class: "btn btn-default #{'btn-primary' if count > 0}"), postings_path
+          
+          = link_to button_tag('Upload', class: 'btn btn-default'), new_upload_path
+
+          = link_to button_tag("Invitations (#{current_user.invitations.state_open.count})", class: 'btn btn-default'), invitations_path
+
+          = link_to 'All posts', postings_path, class: 'btn btn-default'
+
+          = link_to "New", new_album_path, class: 'btn btn-default' if current_user.can_create_album?
+
+        - current_user.albums.each do |album|
+          = render partial: 'albums/thumbnail', locals: {album: album, owner: true, news: false }

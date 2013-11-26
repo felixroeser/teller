@@ -1,0 +1,18 @@
+%h3
+  News in 
+  = @album.title
+
+- if @postings.size > 0
+
+  = render partial: 'shared/posting', collection: @postings
+
+  .row
+    .span12
+      = paginate @postings
+
+- else
+  .row
+    .alert.alert-info
+      There are no new postings in this album. 
+      Have a look at all postings:
+      = link_to 'all', album_postings_path(album_id: @album.id)

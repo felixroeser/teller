@@ -1,0 +1,12 @@
+:verbose: true
+:logfile: log/sidekiq.log
+:concurrency:  5
+:strict: false
+:pidfile: tmp/pids/sidekiq.pid
+:queues:
+  - [default, 7]
+  - [expensive, 6]
+  - [low, 5]
+  - [mailer, 3]
+:limits:
+  expensive: 1

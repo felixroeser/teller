@@ -1,0 +1,30 @@
+%h3
+  = t('invitation_mailer.invite.headline', inviter: @invitation.user.name)
+
+- if @pseudo_user
+  %p
+    = t('invitation_mailer.invite.preregistered_html', email: @invitation.recipient_email, password: @invitation.recipient.pseudo_password)
+%p
+  %b
+    =link_to t('invitation_mailer.invite.accept_or_reject'), accept_invitation_url(@invitation.token, {locale: I18n.locale})
+
+%p
+  %ul
+    - @albums.each do |album|
+      %li
+        = album.title
+        with
+        = album.postings.count
+        pictures and videos
+        %br
+        - @inline_thumbs[album.id].each do |thumb_key|
+          = image_tag attachments[thumb_key].url, alt: 'just a preview'
+
+%p
+  = @invitation.message if @invitation.message.present?
+
+- if @pseudo_user
+  %hr
+    %p
+      = t('invitation_mailer.invite.new_user')
+      = Teller::GLOBALS[:mailer][:default_from]

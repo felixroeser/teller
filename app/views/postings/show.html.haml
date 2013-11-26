@@ -1,0 +1,54 @@
+- if @posting.blank?
+  .row.alert.alert-info
+    This posting is unpublished.
+    Click
+    = link_to 'edit', edit_posting_path(@posting), class: 'alert_link'
+    to publish it!
+- elsif @posting.scheduled?
+  .row.alert.alert-info
+    This posting is scheduled to be published. It just should take another second.
+
+.row
+  .col-md-6
+    %h3
+      = @posting.title      
+
+    %table.table.striped
+      %tr
+        %td in Album
+        %td= link_to @posting.album.title, @posting.album
+      %tr
+        %td posted by
+        %td= @posting.user.name
+      %tr
+        %td recorded at
+        %td= @posting.recorded_at.to_s(:short)
+      %tr
+        %td posting created at
+        %td= @posting.created_at.to_s(:short)
+      %tr
+        %td location
+        %td
+          - if (loc = [@posting.geo_lat, @posting.geo_long].compact).present?
+            = loc.join(' - ')
+          - else
+            %em Turn on GPS when taking pictures on iOS or Android
+      %tr
+        %td{colspan: 2}
+          - if @posting.body.blank?
+            No body text present
+          - else
+            = @posting.body
+      %tr
+        %td Viewed by
+        %td 
+          = @posting.seen_by.pluck(:name).join(', ')
+
+  = render partial: 'meta', locals: {posting: @posting, edit: false}
+
+.row.col-md-12
+  = link_to button_tag('Edit', class: 'btn btn-default'), edit_posting_path(@posting)
+
+  = link_to button_tag('Back', class: 'btn btn-default'), postings_path
+
+  = link_to button_tag('Destroy', class: 'btn btn-danger'), @posting, :method => :delete, :data => { :confirm => t('g.ays') }

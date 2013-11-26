@@ -1,0 +1,26 @@
+.row.col-md-12
+
+  %h3
+    Subscribed to album
+    = @album.title
+
+  %table.table
+    %tr
+      %th Name
+      %th Since
+      %th Viewrate
+      %th
+    - @subscriptions.each do |subscription|
+      %tr
+        %td= subscription.user.name
+        %td= subscription.created_at.to_s(:short)
+        %td
+          - if @album.postings.exists?
+            = @album.view_rate(subscription.user) * 100
+            \%
+        %td
+          = link_to 'Remove', album_subscription_url(album_id: @album.id, id: subscription.id), method: :delete, data: { confirm: t('g.ays') }, class: 'btn btn-default btn-danger btn-sm'
+  
+%hr
+  = link_to 'Back', @album, class: 'btn btn-default'
+  = link_to 'New', invitations_path, class: 'btn btn-default'

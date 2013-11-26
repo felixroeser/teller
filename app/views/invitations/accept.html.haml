@@ -1,0 +1,25 @@
+.jumbotron
+  - if current_user && current_user.email != @invitation.recipient_email
+    .alert.alert-warning
+      = t('invitations.accept.email_mismatch_html', email: @invitation.recipient_email, logout: link_to(t('g.logout'), destroy_user_session_path, method: :delete))
+
+  %h1= t('invitations.accept.headline', inviter: @invitation.user.name, album: @invitation.albums.map(&:title).join(', '))
+
+  %p.lead
+
+  - if !user_signed_in?
+    .alert.alert-warning
+      = t('invitations.accept.not_logged_in_warning_html', login: link_to( t('g.login_before'), new_user_session_path), register: link_to( t('g.register'), new_user_registration_path), recipient_email: @invitation.recipient_email)
+    %p
+      = simple_form_for @invitation, method: 'post', url: {action: 'accepted', controller: 'invitations', auth_token: @invitation.recipient.authentication_token} do |f|
+        = f.button :submit, t('g.y'), class: 'btn btn-success'
+      %small
+        = t('invitations.accept.reject_html', reject: link_to( t('g.n'), rejected_invitation_path(@invitation.token, {auth_token: @invitation.recipient.authentication_token} ) , method: :post) )
+
+  - else
+    %p
+      = simple_form_for @invitation, method: 'post', url: {action: 'accepted', controller: 'invitations'} do |f|
+        = f.button :submit, t('g.y'), class: 'btn btn-success'
+    %p
+      = simple_form_for @invitation, method: 'post', url: {action: 'rejected', controller: 'invitations'} do |f|
+        = f.button :submit, t('g.n'), confirm: t('g.ays'), class: 'btn btn-xs'

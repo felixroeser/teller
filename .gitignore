@@ -1,0 +1,38 @@
+# Linux.gitignore
+.*
+!.coveralls.yml
+!.gitignore
+!.rspec
+!.slugignore
+!.travis.yml
+*~
+
+# OSX.gitignore
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+.rvmrc
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+/public/i
+/public/v
+
+# Ignore seed videos
+/contrib/videos

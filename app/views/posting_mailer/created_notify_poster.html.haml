@@ -1,0 +1,4 @@
+%h3 File got processed and is ready to be published!
+
+%p
+  = link_to 'publish here!', edit_posting_url(id: @posting.id, auth_token: @posting.user.authentication_token)

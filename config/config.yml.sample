@@ -1,0 +1,35 @@
+development:
+
+  public_host: https://teller-dev.example.com
+  in_mail_domain: teller-dev.example.com
+  in_mail_prefix: 'indev-'
+
+  admin_token: '12345'
+
+  boxnet:
+    client_id: CHANGE_ME
+    secret: CHANGE_ME
+
+  twilio:
+    enabled: false
+    account: CHANGE_ME
+    token: CHANGE_ME
+    sender: "+1830123456"
+
+production:
+
+  public_host: http://teller.example.com
+  in_mail_domain: teller.example.com
+  in_mail_prefix: 'in-'
+
+  admin_token: CHANGE_ME
+
+  boxnet:
+    client_id: CHANGE_ME
+    secret: CHANGE_ME
+
+  twilio:
+    enabled: true
+    account: CHANGE_ME
+    token: CHANGE_ME
+    sender: "+1830123456"

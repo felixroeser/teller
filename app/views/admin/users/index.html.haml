@@ -1,0 +1,30 @@
+.row.col-md-12
+
+  %h3 Listing users
+
+  %table.table.table-striped.table-responsive
+    %tr
+      %th Name
+      %th Albums
+      %th Subscriptions
+      %th Open Invites?
+
+    - @users.each do |user|
+      %tr
+        %td
+          = link_to user.name, [:admin, user]
+          &nbsp;
+          = user.email
+        %td
+          = user.albums.collect { |a| a.title }.join(', ')
+        %td
+          = user.subscribed_albums.collect { |a| a.title }.join(', ')
+        %td
+          = Invitation.state_open.where(recipient_email: user.email).count > 0 ? 'Y' : nil
+
+  %br
+
+  = link_to 'New User', new_admin_user_path
+
+  %p
+    = paginate @users

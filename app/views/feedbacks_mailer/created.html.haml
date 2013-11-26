@@ -1,0 +1,16 @@
+%h3
+  New feedback from
+  - if @feedback.user
+    = @feedback.user.name
+    = @feedback.user.email
+  - else
+    unkown
+    = @feedback.email
+
+%p
+  Message:
+
+%p
+  = @feedback.message
+
+= link_to 'All feedback', admin_feedbacks_path

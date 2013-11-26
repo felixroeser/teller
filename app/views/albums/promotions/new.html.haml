@@ -1,0 +1,11 @@
+.well
+  Choose a subscriber to
+  = @album.title
+  to become a co-owner
+
+  %p
+    = form_tag album_promotions_path(@album), method: 'post' do
+      = select_tag(:subscriber_id, options_for_select( @album.subscribers.collect { |s| [s.name, s.id]} ))
+      = submit_tag 'Promote!', confirm: t('g.ays'), class: 'btn btn-primary'
+  %p
+    = link_to 'Back', album_path(@album), class: 'btn btn-default btn-sm'

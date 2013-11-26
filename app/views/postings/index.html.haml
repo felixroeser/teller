@@ -1,0 +1,51 @@
+- if @blank_postings.size > 0
+
+  - if current_user.postings.blank.exists?
+    .row.alert.alert-info
+      Click Edit next to an unpublished post to publish within an album
+
+  .row.col-md-12#subscriptions#unpublished
+
+    %h1 Unpublished postings
+
+    %ul.media-list
+      - @blank_postings.each do |posting|
+        %li.media
+          = link_to image_tag(posting.media.thumb_path, class: 'media-object'), posting, class: 'pull-left'  
+          .media-body
+            %h4.media-heading 
+              = posting.media.is_a?(ImageFile) ? 'Image' : 'Video'
+              created
+              = posting.created_at.to_formatted_s(:short)  
+            %p
+              = link_to button_tag('Edit', class: 'btn btn-primary'), edit_posting_path(posting)
+              = link_to button_tag('Destroy', class: 'btn btn-danger'), posting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+.row.col-md-12#subscriptions#published
+
+  %h1 Your postings
+
+  %p
+    = paginate @postings
+
+  %ul.media-list
+    - @postings.each do |posting|
+      %li.media
+        = link_to image_tag(posting.media.thumb_path, class: 'media-object'), posting, class: 'pull-left'
+        .media-body
+          %h4.media-heading
+            = posting.media.is_a?(ImageFile) ? 'Image' : 'Video'
+            in
+            = link_to posting.album.title, album_path(posting.album) if posting.album
+            by
+            = posting.user.name
+          %p.col-md-4
+            = posting.title
+            %br
+            = posting.recorded_at.to_formatted_s(:short)  
+          %p.col-md-4
+            = link_to button_tag('Details', class: 'btn btn-default btn-sm'), posting
+            = link_to button_tag('Edit', class: 'btn btn-primary btn-sm'), edit_posting_path(posting)
+
+  .row.col-md-12.text-center
+    = paginate @postings

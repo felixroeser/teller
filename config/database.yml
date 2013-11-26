@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: tellerapp_development
+  host: localhost
+  pool: 3
+  username: teller
+  password: test123
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: tellerapp_test
+  host: localhost
+  pool: 3
+  username: teller
+  password: test123
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: tellerapp_development
+  pool: 5
+  username: teller
+  password: test123
+  host: localhost

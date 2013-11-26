@@ -1,0 +1,12 @@
+.jumbotron
+
+  %h1
+    Cool! You created an album
+
+  %p.lead
+    Go ahead and 
+    = link_to 'create a post', new_upload_path, class: 'btn btn-default btn-primary'
+    and then
+    = link_to 'invite friends and familiy', new_invitation_path, class: 'btn btn-default btn-primary'
+    or
+    = link_to 'look at it', @album, class: 'btn btn-default btn-primary'

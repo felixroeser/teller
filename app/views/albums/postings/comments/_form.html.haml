@@ -1,0 +1,9 @@
+= simple_form_for([@album, @posting, @comment]) do |f|
+  = f.error_notification
+
+  .form-inputs
+    = f.input :message, as: :text, required: true, input_html: {cols: 40, rows: 6}
+    = f.input :public, collection: [ ['Sichtbar fuer alle im Album', true], ["Sichtbar nur fuer #{@album.users.map(&:name).join(', ')}", false] ], selected: @comment.public
+  %br
+  .form-actions
+    = f.button :submit

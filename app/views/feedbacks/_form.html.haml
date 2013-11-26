@@ -1,0 +1,11 @@
+= simple_form_for(@feedback) do |f|
+  = f.error_notification
+
+  .form-inputs
+    - unless current_user
+      = f.input :email
+    = f.input :subject, collection: Feedback.subjects, selected: @feedback.subject
+    = f.input :message, as: :text, input_html: {cols: 40, rows: 4}
+
+  .form-actions
+    = f.button :submit

@@ -1,0 +1,81 @@
+.container
+  .navbar.navbar-inverse.navbar-fixed-top
+    .navbar-header
+      %button{'type' => 'button', 'class' => 'navbar-toggle', 'data-toggle' => 'collapse', 'data-target' => '.navbar-collapse'}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      = link_to Rails.application.class.parent_name, root_path, class: 'navbar-brand'
+    .navbar-collapse.collapse
+      %ul.nav.navbar-nav
+        - if current_user
+          %li
+            %a{href: me_path}
+              -# %span.glyphicon.glyphicon-home
+              Dashboard
+          - if current_user.markers_count > 0
+            %li
+              %a{href: me_news_path}
+                New
+                %span.badge
+                  = current_user.markers_count              
+          - if current_user.can_create_album? || current_user.has_albums?
+            - if (count = current_user.postings.blank.count) > 0
+              %li
+                %a{href: postings_path}
+                  Unpublished
+                  %span.badge= count
+            %li
+              %a{href: new_upload_path}
+                Upload
+                -# %span.glyphicon.glyphicon-cloud-upload
+            %li.dropdown
+              %a{href: '#', 'class' => 'dropdown-toogle', 'data-toggle' => 'dropdown'}
+                Your albums
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to "Overview", albums_path(anchor: 'albums')
+                %li
+                  %a{href: invitations_path}
+                    Invitations
+                    - if (count = current_user.invitations.state_open.count) > 0
+                      %span.badge= count
+                %li.divider
+                - current_user.albums.each do |album|
+                  %li= link_to album.title, album_path(album)
+          - if current_user.subscriptions.count > 0
+            %li.dropdown
+              %a{href: '#', 'class' => 'dropdown-toogle', 'data-toggle' => 'dropdown'}
+                Your subscriptions
+                %b.caret
+              %ul.dropdown-menu
+                - current_user.subscribed_albums.each do |album|
+                  %li= link_to album.title, album_postings_path(album.id)
+
+          - if current_user && current_user.admin?
+            %li.dropdown
+              %a{href: '#', 'class' => 'dropdown-toogle', 'data-toggle' => 'dropdown'}
+                Admin
+                %b.caret
+              %ul.dropdown-menu
+                %li= link_to "Users", admin_users_path
+                %li= link_to "Comments", admin_comments_path
+                %li= link_to "Feedback", admin_feedbacks_path
+                %li.divider
+                %li= link_to "Newsgatherer", admin_news_gatherer_path
+                %li= link_to "Sidekiq", '/sidekiq'
+
+          %li= link_to 'Logout', destroy_user_session_path, method: :delete
+        - else
+          %li= link_to t('g.login'), new_user_session_path
+          %li= link_to t('g.register'), new_user_registration_path
+      %ul.nav.navbar-nav.navbar-right
+        %li.dropdown
+          %a{href: '#', 'class' => 'dropdown-toogle', 'data-toggle' => 'dropdown'}
+            Help & Info
+            %b.caret
+          %ul.dropdown-menu
+            %li= link_to 'Your account', edit_user_registration_path
+            %li.divider
+            %li= link_to 'About', about_path
+            %li= link_to 'Feedback', new_feedback_path

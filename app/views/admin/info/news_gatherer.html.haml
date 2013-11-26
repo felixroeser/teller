@@ -1,0 +1,38 @@
+.row.col-md-12
+
+  %h3 Newsgatherer
+
+  %table.table
+    %tr
+      %td Last run
+      %td
+        = Time.at(@data[:last_run].to_i) if @data[:last_run]
+    %tr
+      %td Newer as
+      %td
+        = @data[:newer_as]
+    %tr
+      %td
+        Eligible Albums
+      %td
+        = Album.where(id: @data[:eligible_album_ids]).pluck(:title).join(', ')
+    %tr
+      %td
+        Eligible Users
+      %td
+        = raw User.where(id: @data[:eligible_user_ids]).collect { |u| link_to u.name, [:admin, u] }.join(', ')
+    %tr
+      %td
+        Present
+      %td
+        = raw User.where(id: @data[:present]).collect { |u| link_to u.name, [:admin, u] }.join(', ')
+    %tr
+      %td
+        Unchanged
+      %td
+        = raw User.where(id: @data[:unchanged]).collect { |u| link_to u.name, [:admin, u] }.join(', ')
+    %tr
+      %td
+        Blank
+      %td
+        = raw User.where(id: @data[:blank]).collect { |u| link_to u.name, [:admin, u] }.join(', ')

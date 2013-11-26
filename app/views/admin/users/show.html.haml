@@ -1,0 +1,46 @@
+%p#notice= notice
+
+%p
+  %b Name
+  = @user.name
+%p
+  %b Email
+  = @user.email
+%p
+  %b Phone
+  = @user.phone
+%p
+  %b Registered
+  = @user.created_at.to_s(:short)
+%p
+  %b Signin
+  = @user.sign_in_count
+  \|
+  = @user.last_sign_in_at
+%p
+  %b Owns
+  = @user.albums.collect { |a| a.title }.join(', ')
+%p
+  %b Subscripted to
+  = @user.subscribed_albums.collect { |a| a.title }.join(', ')
+%p
+  %b Invites?
+  %ul
+    - Invitation.where(recipient_email: @user.email).each do |invitation|
+      %li
+        %b
+          = invitation.state
+        &nbsp;
+        = invitation.user.name
+        to 
+        = invitation.albums.map(&:title).join(', ')
+        at
+        = invitation.created_at.to_s(:short)
+        with
+        = invitation.token
+        id
+        = invitation.id
+
+= link_to 'Edit', edit_admin_user_path(@user), class: 'btn btn-primary btn-sm'
+= link_to 'Destroy', [:admin, @user], :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-default btn-sm'
+= link_to 'Back', admin_users_path, class: 'btn btn-danger btn-sm'

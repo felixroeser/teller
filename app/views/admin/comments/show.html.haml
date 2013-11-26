@@ -1,0 +1,17 @@
+%p
+  %b Posting:
+  = @comment.posting_id
+%p
+  %b User:
+  = @comment.user_id
+%p
+  %b Message:
+  = @comment.message
+%p
+  %b State:
+  = @comment.state
+%p
+  %b Public:
+  = @comment.public
+
+= link_to 'Back', admin_comments_path

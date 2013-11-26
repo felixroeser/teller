@@ -1,0 +1,16 @@
+%h3= t('news_mailer.digest.headline', user: @user.name)
+
+%p
+  %ul
+    - @albums.each do |album|
+      %li
+        - nr = @markers_by_album[album.id].size
+        = t('news_mailer.digest.per_album_html', album: album.title, nr: nr, users: User.joins(:postings).where('postings.id IN (?)', @markers_by_album[album.id]).uniq.map(&:name).join(', ') )
+        %br
+        = link_to "#{nr} #{t('g.new')}", me_news_album_url(album.id, auth_token: @user.authentication_token)
+        \|
+        = link_to t('g.all'), album_postings_url(album.id, auth_token: @user.authentication_token)
+
+%p
+  - @inline_thumbs.each do |key|
+    = image_tag attachments[key].url, alt: 'just a preview'

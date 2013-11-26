@@ -1,0 +1,15 @@
+%p
+  Hello
+  = @invitation.user.name
+  ,
+
+%p
+  = @invitation.recipient_email
+  rejected your invitation to join your albums:
+  %ul
+    - @invitation.albums.each do |album|
+      %li
+        = album.title
+        with
+        = album.postings.count
+        picutes and videos

@@ -1,0 +1,14 @@
+.jumbotron
+
+  %h1
+    Creating invitations
+
+  %p.lead
+    %strong= @recipient_emails.join(', ')
+    will be invited to join
+    %em= @albums.map(&:title).join(', ')
+
+  %p
+  = link_to "All invitations", invitations_path, class: 'btn btn-primary'
+  - @albums.each do |album|
+    = link_to album.title, album, class: 'btn btn-default'

@@ -1,0 +1,17 @@
+.jumbotron
+
+  %h1
+    Processing your file now!
+
+  %p.lead
+    That might take some time and you will get an email when we're done
+
+  %p.lead
+    - unpublished = current_user.postings.blank.exists?
+    = link_to 'Add another one!', new_upload_path, class: "btn btn-default #{'btn-primary' unless unpublished}"
+    - if unpublished
+      &nbsp;or&nbsp;
+      = link_to 'Publish the finished ones!', postings_path(anchor: 'unpublished'), class: 'btn btn-default btn-primary'
+
+
+

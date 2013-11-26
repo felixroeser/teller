@@ -1,0 +1,17 @@
+
+= simple_form_for(@invitation) do |f|
+  = f.error_notification
+
+  .inputs
+
+    = f.collection_check_boxes :album_ids, current_user.albums.collect { |a| [a.id, a.title]}, :first, :last
+
+    = f.input :message, as: :text, input_html: {cols: 40, rows: 4}
+
+    = f.input :recipient_email, hint: 'Separate multiple with ; , or space'
+
+    = f.input :locale, collection: Teller::GLOBALS[:locales].collect { |k,  v| [v, k] }, selected: I18n.locale.to_s,  prompt: 'Language'
+
+  .actions
+    = f.button :submit
+    = link_to 'Back', invitations_path, class: 'btn btn-default'

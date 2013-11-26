@@ -1,0 +1,223 @@
+# Files in the config/locales directory are used for internationalization
+# and are automatically loaded by Rails. If you want to use locales other
+# than English, add the necessary files in this directory.
+#
+# To use the locales, use `I18n.t`:
+#
+#     I18n.t 'hello'
+#
+# In views, this is aliased to just `t`:
+#
+#     <%= t('hello') %>
+#
+# To use a different locale, set it with `I18n.locale`:
+#
+#     I18n.locale = :es
+#
+# This would use the information in config/locales/es.yml.
+#
+# To learn more, please read the Rails Internationalization guide
+# available at http://guides.rubyonrails.org/i18n.html.
+
+en:
+  hello: "Hello world"
+  tellerapp: 'Teller'
+  g:
+    login: 'login'
+    login_before: 'login before'
+    register: 'Register'
+    logout: 'logout'
+    reject: 'reject'
+    destroy: 'destroy'
+    here: 'here'
+    y: 'Yes'
+    n: 'No'
+    ays: 'Are you sure?'
+    new: 'New'
+    all: 'All'
+  pages:
+    home:
+      headline: 'Tell your stories in videos and pictures'
+      welcome: 'Welcome %{user}'
+  users:
+    reg:
+      new:
+        headline: 'Register now!'
+    edit:
+      headline: 'Your account'
+    passwords:
+      new:
+        submit: "Send me reset password instructions"
+    not_reviewed_html: "Please review your account settings %{setting}"
+  shared:
+    links:
+      sign_in_html: 'Already registered? %{login}'
+      forgot_password: 'Forgot your password?'
+      no_account_register_html: 'No account? %{register} a new one'
+  me:
+    index:
+      no_content: 'You have no subscriptions. Did you receive one via email?'      
+  commnets:
+    created:
+      saved: 'Your messages will be send via email to %{email}'      
+  invitations:
+    rejected:
+      notic: "You rejected the invitation"
+    accept:
+      not_logged_in_warning_html: "If you already have an account other than %{recipient_email} please %{login} with that account. You can change your settings later."
+      headline: 'Do you want to accept the invitation from %{inviter} to join %{album}?'
+      email_mismatch_html: 'This invitation was meant for %{email} Is that really you? Otherwise %{logout} first!'
+      reject_html: 'You can %{reject} without signin'
+    taken: 'This invitation has already been accepted or has been revoked'
+  mailer:
+    footer:
+      pitch: 'Tellerapp is a private photo and video gallery by Felix Roeser.'
+  comments_mailer:
+    created:
+      subject: "%{user} commented a posting in %{album}"
+      headline: "%{user} commented on %{post} in %{album}"
+      left_message: "%{user} left you a message. Please reply via E-Mail"      
+  news_mailer:
+    digest:
+      subject: "New posts %{albums}"
+      headline: "Hello %{user}, There are new postings in" 
+      per_album_html: "%{album} has %{nr} new photos/videos from %{users}"
+  album_ownerships_mailer:
+    created:
+      subject: "You now own the album %{album}"
+      headline: "You now own the album %{album} and can start posting to it!"
+      postings: "See all your postings"
+      browse_postings: "Browse all current postings in the album"
+      upload: "You can upload new pictures and video"
+      mail: "Or send them via email (max 25MB) to"
+      contact: "Add the attached vcard to your addressbook to store the magic mail address"
+  posting_mailer:
+    created_notify_poster:
+      subject: "Your posting has been processed. Publish now?!"
+  invitation_mailer:
+    invite:
+      subject: "%{inviter} invited you to his photo and video album "  
+      headline: "%{inviter} invited you to his private photo and video album "
+      accept_or_reject: 'You can accept or reject his invitation here'
+      new_user: 'albums on teller are private and therefore you have to register a new account if you dont have one already. If you have trouble registering and accepting this invitation send an email to '
+      preregistered_html: 'We already created a preregistered user for you to access this invtation and join the album. Login is %{email} with %{password} as password'
+    accepted:
+      subject: '%{recipient} accepted your invitation'
+    rejected:
+      subject: '%{recipient} rejected your invitation' 
+    subscriptions_created:
+      subject: "You just subscribed to %{albums}"
+  date:
+    abbr_day_names:
+    - Sun
+    - Mon
+    - Tue
+    - Wed
+    - Thu
+    - Fri
+    - Sat
+    abbr_month_names:
+    -
+    - Jan
+    - Feb
+    - Mar
+    - Apr
+    - May
+    - Jun
+    - Jul
+    - Aug
+    - Sep
+    - Oct
+    - Nov
+    - Dec
+    day_names:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    formats:
+      default: ! '%Y-%m-%d'
+      long: ! '%B %d, %Y'
+      short: ! '%b %d'
+    month_names:
+    -
+    - January
+    - February
+    - March
+    - April
+    - May
+    - June
+    - July
+    - August
+    - September
+    - October
+    - November
+    - December
+    order:
+    - :year
+    - :month
+    - :day
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: about 1 hour
+        other: about %{count} hours
+      about_x_months:
+        one: about 1 month
+        other: about %{count} months
+      about_x_years:
+        one: about 1 year
+        other: about %{count} years
+      almost_x_years:
+        one: almost 1 year
+        other: almost %{count} years
+      half_a_minute: half a minute
+      less_than_x_minutes:
+        one: less than a minute
+        other: less than %{count} minutes
+      less_than_x_seconds:
+        one: less than 1 second
+        other: less than %{count} seconds
+      over_x_years:
+        one: over 1 year
+        other: over %{count} years
+      x_days:
+        one: 1 day
+        other: ! '%{count} days'
+      x_minutes:
+        one: 1 minute
+        other: ! '%{count} minutes'
+      x_months:
+        one: 1 month
+        other: ! '%{count} months'
+      x_seconds:
+        one: 1 second
+        other: ! '%{count} seconds'
+    prompts:
+      day: Day
+      hour: Hour
+      minute: Minute
+      month: Month
+      second: Seconds
+      year: Year
+  errors: &errors
+    format: ! '%{attribute} %{message}'
+    messages:
+      accepted: must be accepted
+      blank: can't be blank
+      present: must be blank
+      confirmation: ! "doesn't match %{attribute}"
+      empty: can't be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: is reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: is not included in the list
+      invalid: is invalid
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: i

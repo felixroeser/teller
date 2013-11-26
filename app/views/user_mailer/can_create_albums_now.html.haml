@@ -1,0 +1,34 @@
+%h2
+  Good news everyone: You can now create your own albums on teller
+
+%p
+  %ul
+    %li
+      You can create up to 
+      = @user.max_albums
+      albums
+    %li
+      Get started
+      %ul
+        %li
+          = link_to 'create an album', new_album_url
+        %li
+          = link_to 'upload a post', new_upload_url
+          or
+          send some pictures / a video (25mb max) to
+          = @user.magic_mail_address
+        %li
+          = link_to 'invite friends and familiy', new_invitation_url
+    %li
+      Why teller?
+      %ul
+        %li family operated since 1913 ;)
+        %li you decide who can access your postings: just keep the group small 
+        %li promote subscriber to become coowners
+        %li no crappy downsizing of pictures and video
+        %li free for friends and family
+        %li no creepy 3rd party tracking, cookies or social media buttons
+
+    %li
+      Don't expect everything to be smooth. If you find bugs or have suggestions
+      = link_to 'leave feedback', new_feedback_url

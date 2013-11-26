@@ -1,0 +1,14 @@
+= simple_form_for(@album) do |f|
+  = f.error_notification
+
+  .inputs
+    = f.input :title
+
+  .inputs
+    = f.input :begins_at, as: :date, end_year: Date.today.year, order: [:day, :month, :year], hint: 'When did your event begin?'
+
+  .inputs
+    = f.input :display_age, hint: 'Display the age of your postings relative to the begin date'
+
+  .actions
+    = f.button :submit

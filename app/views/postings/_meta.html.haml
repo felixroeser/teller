@@ -1,0 +1,48 @@
+.col-md-6
+  %ul.list-group
+    %li.list-group-item
+      .media
+        %a{href: '#', class: 'pull-left'}
+          = image_tag posting.media.thumb_path, class: 'media-object'
+        .media-body
+          - if edit
+            = posting.title
+            by
+            = posting.user.name
+            created
+            = posting.created_at.to_s(:short)
+          - else
+            - if posting.media.is_a?(VideoFile)
+              Video
+              duration
+              = posting.media.original_duration
+              seconds
+            - else
+              Image
+    %li.list-group-item
+      Resolution
+      = posting.media.original_width
+      x
+      = posting.media.original_height
+      %br
+      Size
+      = posting.media.original_file_size / 1024
+      kb
+      %br
+      Total for all formats
+      = posting.disc_usage / 1024
+      kb
+    - if !edit
+      %li.list-group-item
+        -# FIXME xsendfile
+        = link_to "Original #{posting.media.original_name}", posting.media.download_path('original')
+        %em More Downloads etc coming soon!
+    - else
+      %li.list-group-item
+        - if posting.media.is_a? VideoFile
+          Videorotation coming soon
+        - else
+          Rotate:
+          = form_tag rotate_image_file_path(posting.media), method: 'post' do
+            = select_tag(:degrees, options_for_select([0, 90, 180, 270]))
+            = submit_tag 'rotate', class: 'btn btn-default btn-sm'

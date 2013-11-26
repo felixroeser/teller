@@ -1,0 +1,22 @@
+%h1 Listing feedbacks
+
+%table
+  %tr
+    %th
+    %th User
+    %th Email
+    %th Message
+    %th Subject
+    %th
+    %th
+    %th
+
+  - @feedbacks.each do |feedback|
+    %tr
+      %td= feedback.created_at.to_s(:short)
+      %td= feedback.user.name if feedback.user_id
+      %td= feedback.email
+      %td= feedback.message
+      %td= feedback.subject
+      %td= link_to 'Show', [:admin, feedback]
+      %td= link_to 'Destroy', [:admin, feedback], :method => :delete, :data => { :confirm => 'Are you sure?' }

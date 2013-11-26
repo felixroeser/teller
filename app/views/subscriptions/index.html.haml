@@ -1,0 +1,7 @@
+%h2 Your subscriptions
+
+%li
+  - @subscriptions.each do |subscription|
+    = link_to subscription.album.title, "/albums/#{subscription.album_id}/postings"
+    = link_to '[Unsubscribe]', subscription, :method => :delete, :data => { :confirm => 'Are you sure?' }
+  

@@ -1,0 +1,16 @@
+.col-sm-6.col-md-3
+  .thumbnail
+    - if album.postings.latest_first.first
+      %img{'src' => "#{album.postings.latest_first.first.media.thumb_path}" }
+    .caption
+      %h4.text-center
+        = album.title
+        by
+        = album.users.map(&:name).join(', ')
+      %p.text-center
+        - if news
+          = link_to "NEW", me_news_album_path(album.id), class: 'btn btn-primary'
+          &nbsp;
+        = link_to "All posts", album_postings_path(album.id), class: 'btn btn-primary'
+        - if owner
+          = link_to "Details", album, class: 'btn btn-primary'

@@ -1,0 +1,16 @@
+- if @albums_with_news.size > 0
+
+  Checkout new postings in:
+
+  %ul
+    - @albums_with_news.each do |album|
+      %li= link_to album.title, me_news_album_path(album)
+
+- else
+
+  .alert.alert-info
+  There are no new postings in this album. Look again at old postings:
+
+  %ul
+    - current_user.subscribed_albums.each do |album|
+      %li= link_to album.name, album_path(title)

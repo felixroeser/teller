@@ -1,0 +1,22 @@
+%h3
+  = t('album_ownerships_mailer.created.headline', album: @album_ownership.album.title)
+  = link_to 'Tellerapp', root_url
+%p
+  %ul
+    %li
+      = t('album_ownerships_mailer.created.postings')
+      = link_to t('g.here'), postings_url
+    %li
+      = t('album_ownerships_mailer.created.browse_postings')
+      = link_to t('g.here'), album_postings_url(@album_ownership.album)
+    %li
+      %b
+        = t('album_ownerships_mailer.created.upload')
+        = link_to t('g.here'), new_upload_url
+    %li
+      %b
+        = t('album_ownerships_mailer.created.mail')
+        = @album_ownership.user.magic_mail_address
+      %br
+        = t('album_ownerships_mailer.created.contact')
+

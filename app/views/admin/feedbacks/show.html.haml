@@ -1,0 +1,18 @@
+%p
+  %b User:
+  = @feedback.user.name if @feedback.user_id
+%p
+  %b Email:
+  = @feedback.email
+%p
+  %b Message:
+  = @feedback.message
+%p
+  %b Subject:
+  = @feedback.subject
+%p
+  %b created at:
+  = @feedback.created_at.to_s(:short)
+
+%hr
+= link_to 'Back', admin_feedbacks_path

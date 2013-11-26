@@ -1,0 +1,13 @@
+%h3= "#{@posting.user.name} posted #{@posting.title} in #{@posting.album.title}"
+
+%p
+  %ul
+    %li
+      See the full posting
+      = link_to "here", posting_url(id: @posting.id)
+    %li
+      Edit the posting
+      = link_to "here", edit_posting_url(id: @posting.id)
+    %li
+      All postings in
+      = link_to @posting.album.title, album_postings_url(album_id: @posting.album_id) 

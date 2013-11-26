@@ -1,0 +1,23 @@
+<div class='form-signin'>
+  <h2 class='form-signin-heading'><%= t('users.reg.new.headline') %></h2>
+
+  <%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+    <%= f.error_notification %>
+
+    <div class="form-inputs">
+      <%= f.input :email, :required => true, :autofocus => true %>
+      <%= f.input :name, :required => true %>
+      <%= f.input :password, :required => true %>
+      <%= f.input :password_confirmation, :required => true %>
+      <%= f.input :locale, collection: Teller::GLOBALS[:locales].keys , prompt: 'Language', selected: I18n.locale %>
+      <%= f.input :pseudo, as: :hidden, input_html: { value: 0 } %>
+      <%= f.input :reviewed, as: :hidden, input_html: { value: 1 } %>      
+    </div>
+
+    <div class="form-actions">
+      <%= f.button :submit, t('g.register') %>
+    </div>
+  <% end %>
+
+  <%= render "users/shared/links" %>
+</div>

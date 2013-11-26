@@ -1,0 +1,58 @@
+- if @album.postings.count == 0
+  .alert.alert-info
+    There are no posts in this album!
+    = link_to 'Go ahead and create one', new_upload_path, class: 'alert-link'
+- elsif @album.subscribers.blank? && @album.open_invitations.count == 0
+  .alert.alert-info
+    This album doesnt have subscripber or invitations.
+    = link_to 'Go ahead and invite friends and familiy', new_invitation_path, class: 'alert-link'
+
+.row
+  .col-md-12
+    %h2= @album.title
+
+    %table.table.table-striped
+      %tr
+        %td Owned by
+        %td
+          = @album.users.collect { |user| user.name }.join(', ')
+        %td
+          - if @album.subscribers.size > 0 && @album.owned_by(current_user)
+            = link_to 'Promote', new_album_promotion_path(@album), hint: 'Promote a subscribe to become co-owner', class: 'btn btn-default btn-sm'
+      %tr
+        %td Subscribers
+        %td
+          = @album.subscribers.collect { |user| user.name }.join(', ')
+        %td
+          = link_to 'Edit', album_subscriptions_path(@album), class: 'btn btn-default btn-sm'
+      %tr
+        %td Open invitations
+        %td
+          = @album.open_invitations.collect { |i| i.recipient_email }.join(', ')
+        %td
+          = link_to 'New', new_invitation_path, class: 'btn btn-default btn-sm'
+          - if (count = @album.open_invitations.size) > 0
+            = link_to "All (#{count})", invitations_path, class: 'btn btn-default btn-sm'
+      %tr
+        %td Postings
+        %td
+          = link_to @album.postings.count, album_postings_path(@album)
+        %td
+          = link_to "All", album_postings_path(@album), class: 'btn btn-default btn-sm'
+          = link_to "New", new_upload_path, class: 'btn btn-default btn-sm'
+      %tr
+        %td{colspan: 3}
+          -if @album.display_age
+            Showing the age of postings relative to
+            = @album.begins_at.to_s(:long)
+          -else
+            Not showing the age of postings relative to
+            = @album.begins_at.to_s(:long)
+
+    %hr
+    %p
+      = link_to 'Edit', edit_album_path(@album), class: 'btn btn-default'
+      = link_to 'Back', me_path, class: 'btn btn-default'
+      - if @album.owned_by(current_user)
+        = link_to 'Destroy', @album, :method => :delete, :data => { :confirm => t('g.ays') }, class: 'btn btn-danger'
+

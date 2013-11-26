@@ -1,0 +1,13 @@
+- title t('tellerapp')
+
+.jumbotron
+  - unless current_user
+    %h1
+      = t('pages.home.headline')
+    %p.lead
+      = link_to "Login", new_user_session_path, class: "btn btn-success"
+  - else
+    %h1
+      = t('pages.home.welcome', user: current_user.name)
+    %p.lead
+      = link_to "Dashboard", me_path, class: "btn btn-success"

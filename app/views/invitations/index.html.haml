@@ -1,0 +1,24 @@
+.row.col-md-12
+
+  %h3.text-center Your open invitations
+
+  %table.table.table-striped
+    %tr
+      %th Invited
+      %th To
+      %th At
+      %th
+
+    - @invitations.each do |invitation|
+      %tr
+        %td
+          = invitation.recipient_email
+          = invitation.recipient.try(:name)
+        %td
+          = invitation.albums.map(&:title).join(', ')
+        %td
+          = invitation.created_at.to_s(:short)
+        %td
+          = link_to t('g.destroy'), invitation, method: :delete, data: { :confirm => t('g.ays') }, class: 'btn btn-danger btn-sm'
+  
+  = link_to 'New Invitation', new_invitation_path, class: 'btn btn-default btn-primary'

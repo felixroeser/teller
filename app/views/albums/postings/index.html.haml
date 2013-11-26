@@ -1,0 +1,17 @@
+- if @postings.blank?
+
+  .jumbotron
+    %h1
+      There are no postings in this album so far.
+    - if @album.editable_by(current_user)
+      %p.lead
+        = link_to 'Upload', new_upload_path, class: 'btn btn-primary'
+    - else
+      = @album.users.map(&:name).join(', ')
+      will create some soon.
+
+- else
+  = render partial: 'shared/posting', collection: @postings
+
+  .row.col-md-12.text-center
+    = paginate @postings

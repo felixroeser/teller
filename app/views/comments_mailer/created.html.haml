@@ -1,0 +1,14 @@
+%h3= t('comments_mailer.created.headline', album: @comment.posting.album.title, user: @comment.user.name, post: @comment.posting.title)
+
+%p
+  = t('comments_mailer.created.left_message', user: @comment.user.name)
+
+%p
+  = @comment.message
+
+%hr
+%p
+  = link_to 'Posting', posting_url(@comment.posting)
+  %br
+  - @inline_thumbs.each do |key|
+    = image_tag attachments[key].url, alt: 'just a preview'

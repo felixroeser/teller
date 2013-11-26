@@ -1,0 +1,8 @@
+.form-signin
+  %h2.form-signin-heading
+    New comment
+
+  = render 'form'
+
+%hr
+= link_to 'Back', album_postings_path(album_id: @album.id), class: 'btn btn-default btn-sm'

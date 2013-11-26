@@ -1,0 +1,19 @@
+%h3
+  Hello
+  = @invitation.recipient.name
+  ,
+
+%p
+  You are now a subscriber to the following albums:
+  %ul
+    - @invitation.albums.each do |album|
+      %li
+        = link_to album.title, album_url(album)
+        with
+        = album.postings.count
+        picutes and videos by
+        = album.users.map(&:name).join(', ')
+        %br
+        = link_to '[New postings]', me_news_album_url(album.id, auth_token: @invitation.recipient.authentication_token)
+        \|  
+        = link_to '[All postings]', album_postings_url(album.id, auth_token: @invitation.recipient.authentication_token)

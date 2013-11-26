@@ -1,0 +1,22 @@
+%h1 Listing comments
+
+%table
+  %tr
+    %th Posting
+    %th User
+    %th Message
+    %th State
+    %th Public
+    %th
+    %th
+    %th
+
+  - @comments.each do |comment|
+    %tr
+      %td= comment.posting_id
+      %td= comment.user_id
+      %td= comment.message
+      %td= comment.state
+      %td= comment.public
+      %td= link_to 'Show', [:admin, comment]
+      %td= link_to 'Destroy', [:admin, comment], :method => :delete, :data => { :confirm => 'Are you sure?' }

@@ -1,0 +1,7 @@
+.form-signin
+  %h2.form-signin-heading
+    Send some feedback to the team
+  
+  = render 'form'
+
+= link_to button_tag("Back", class: 'btn btn-default btn-sm'), '#', :onclick => 'history.back(); return false;'

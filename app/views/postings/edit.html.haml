@@ -1,0 +1,14 @@
+.row
+  .col-md-6
+    .form-signin
+      %h2.form-signin-heading
+        Edit
+      = render 'form'
+
+      = link_to button_tag("Back", class: 'btn btn-default btn-sm'), '#', :onclick => 'history.back(); return false;'
+      = link_to button_tag('All', class: 'btn btn-default btn-sm'), postings_path(anchor: 'albums')
+      = link_to button_tag('Destroy', class: 'btn btn-danger btn-sm'), @posting, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+  = render partial: 'meta', locals: {posting: @posting, edit: true}
+
+

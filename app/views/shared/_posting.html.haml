@@ -1,0 +1,40 @@
+%hr
+.row
+  .col-md-12
+    .col-md-8.col-xs-6
+      %p
+        %strong= posting.title
+        by
+        = posting.user.name
+        - if posting.body.present?
+          %br
+          = posting.body
+      %p
+        %small
+          = posting.recorded_at.to_s(:short)
+          - if posting.album.display_age
+            age
+            = distance_of_time_in_words( posting.recorded_at, posting.album.begins_at.to_time )
+    .col-md-4.col-xs-6
+      %p.pull-right
+        - if posting.album.editable_by(current_user)
+          = link_to button_tag('Edit', class: "btn btn-default btn-sm"), posting_path(posting)
+        - else
+          = link_to button_tag('Comment', class: "btn btn-default btn-sm"), new_album_posting_comment_path(album_id: posting.album_id, posting_id: posting.id)
+
+.row
+  .col-md-12
+    %p.text-center
+      - if posting.media.is_a?(ImageFile)
+        = image_tag(posting.media.image_path_for(:medium), class: 'img-responsive')
+        -# WAS link_to , posting.media.image_path_for(posting.media.resolutions_biggest)
+      - elsif posting.media.is_a?(VideoFile)
+        .posting_index_video{style: "max-width: #{posting.media.resolutions['480']}px; max-height: 480px" }
+          - if ios_device?
+            - h, w = [posting.media.resolutions['480'], 480]
+          - else
+            - h, w = ['100%', 'auto']
+
+          %video{id: "video-#{posting.media_id}", controls: true, poster: posting.media.poster_path(480), preload: :none, width: h, height: w}
+            - VideoFile.formats.each do |format|
+              %source{src: posting.media.video_path(format, 480), type: posting.media.type(format)}
